@@ -14,10 +14,8 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	dlistint_t *current = *head;
 	unsigned int count = 0;
 
-	if (*head == NULL)
-	{
+	if (head == NULL || *head == NULL)
 		return (-1);
-	}
 
 	while (current != NULL && count < index)
 	{
@@ -26,10 +24,9 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	}
 
 	if (current == NULL)
-	{
 		return (-1);
-	}
 
+	// Deleting the first element
 	if (current == *head)
 	{
 		*head = current->next;
@@ -38,6 +35,7 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	}
 	else
 	{
+		// Deleting an intermediate or the last element
 		if (current->prev != NULL)
 			current->prev->next = current->next;
 		if (current->next != NULL)
@@ -46,6 +44,7 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 
 	free(current);
 
+	// Check if the list is empty after deletion
 	if (*head == NULL)
 		*head = NULL;
 
